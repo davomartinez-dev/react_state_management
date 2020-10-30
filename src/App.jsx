@@ -3,13 +3,19 @@ import './App.css';
 import Footer from './Footer';
 import Header from './Header';
 import { getProducts } from './services/productService';
+import Spinner from './Spinner';
 
 export default function App() {
   const [size, setSize] = useState('');
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProducts('shoes').then(response => setProducts(response));
+    getProducts('shoes')
+      .then(response => setProducts(response))
+      .catch(e => setError(e))
+      .finally(() => setLoading(false));
   }, []);
 
   function renderProduct(p) {
@@ -27,6 +33,10 @@ export default function App() {
   const filteredProducts = size
     ? products.filter(prod => prod.skus.find(s => s.size === parseInt(size)))
     : products;
+
+  if (error) throw error;
+
+  if (loading) return <Spinner />;
 
   return (
     <>
