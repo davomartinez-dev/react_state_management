@@ -44,17 +44,17 @@ const products = [
 ];
 
 export default function App() {
-  // function renderProduct(p) {
-  //   return (
-  //     <div key={p.id} className="product">
-  //       <a href="/">
-  //         <img src={`/images/${p.image}`} alt={p.name} />
-  //         <h3>{p.name}</h3>
-  //         <p>${p.price}</p>
-  //       </a>
-  //     </div>
-  //   );
-  // }
+  function renderProduct(p) {
+    return (
+      <div key={p.id} className="product">
+        <a href="/">
+          <img src={`/images/${p.image}`} alt={p.name} />
+          <h3>{p.name}</h3>
+          <p>${p.price}</p>
+        </a>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -70,6 +70,7 @@ export default function App() {
               <option value="9">9</option>
             </select>
           </section>
+          <section id="products">{products.map(renderProduct)}</section>
         </main>
       </div>
       <Footer />
